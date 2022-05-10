@@ -32,9 +32,9 @@ const updatePosition = () => {
         myLat = lat;
         myLng = lng;
 
-        console.log(myLat, myLng)
-
         if (id === -1) {
+
+          // One time setup to get unique user id
           await forbind(myLat, myLng);
         }
       },
@@ -46,30 +46,29 @@ const updatePosition = () => {
       }
     );
   } else {
-    console.log("Geolocation is not supported by this browser.");
+    canvasText.innerText = ("Geolocation is not supported by this browser.");
   }
 };
 
+// Send updated GPS position to server
 const updateInfo = async () => {
-
-  const requestObj = {
-    id,
-    lat: myLat,
-    lng: myLng,
-  };
 
   const response = await fetch(`/api/info`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(requestObj),
+    body: JSON.stringify({
+      id,
+      lat: myLat,
+      lng: myLng,
+    }),
   });
 
   const data = await response.json();
 
   if (data.error) {
-    console.log(data.error);
+    canvasText.innerText = data.error;
     return;
   }
 
@@ -96,7 +95,7 @@ const forbind = async (lat, lng) => {
   const data = await response.json();
 
   if (data.error) {
-    console.log(data.error);
+    canvasText.innerText = data.error;
     return;
   }
 
