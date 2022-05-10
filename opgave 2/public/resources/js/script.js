@@ -30,8 +30,6 @@ const updatePosition = () => {
       canvasName.innerText = `${username}
             latitude: ${lat}
             longitude: ${lng}`;
-
-      console.log("Updated");
     });
   } else {
     console.log("Geolocation is not supported by this browser.");
