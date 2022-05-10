@@ -9,7 +9,6 @@ let username = "";
 
 // Update username and show canvas
 const confirmUsername = () => {
-
   username = usernameInput.value;
 
   canvasName.innerText = username;
@@ -19,21 +18,20 @@ const confirmUsername = () => {
 
   // Initial Call
   updatePosition();
-
-  // Update every 1 seconds
-  setInterval(updatePosition, 1000);
 };
 
 // Update GPS position
 const updatePosition = () => {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.watchPosition((position) => {
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
 
       canvasName.innerText = `${username}
             latitude: ${lat}
             longitude: ${lng}`;
+
+      console.log("Updated");
     });
   } else {
     console.log("Geolocation is not supported by this browser.");
