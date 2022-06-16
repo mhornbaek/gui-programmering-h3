@@ -144,9 +144,11 @@ const updateCanvas = async (data) => {
 
   const myData = data.find((user) => user.isMe);
 
+  // center lat and lng
   const centerLat = myData.lat;
   const centerLng = myData.lng;
 
+  // Screen center position
   const centerScreenX = canvasWidth / 2;
   const centerScreenY = canvasHeight / 2;
 
@@ -167,7 +169,7 @@ const updateCanvas = async (data) => {
 
     // Draw person
     drawPerson(user.name, x, y, gpsSize, "#ed2939");
-  })
+})
 };
 
 // World cords to screen cords
@@ -177,6 +179,7 @@ const world2screen = (screenX, screenY, myLat, myLng, lat, lng) => {
   let deltaLat = (myLat - lat) * 1000;
   let deltaLng = (myLng - lng) * 1000
 
+  // Scale with slider
   deltaLat *= (50/slider.value)
   deltaLng *= (50/slider.value)
 
@@ -189,6 +192,7 @@ const world2screen = (screenX, screenY, myLat, myLng, lat, lng) => {
 
 // Two Points on Earth
 // SRC: https://www.geeksforgeeks.org/program-distance-two-points-earth/
+// returns distance in KM
 const distance = (lat1, lat2, lon1, lon2) => {
   // The math module contains a function
   // named toRadians which converts from
